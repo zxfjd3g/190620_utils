@@ -46,10 +46,12 @@
   // PubSub.unsubscribe(token) 
   // PubSub.unsubscribe('add') 
   // PubSub.unsubscribe() 
-  // PubSub.publish('add', 1)
-  PubSub.publishSync('add', 1)
+  // PubSub.unsubscribe(1) 
+  PubSub.publish('add', 1)
+  // PubSub.publishSync('add', 1)
   console.log('publish add 之后')
   PubSub.publish('remove', 2)
+  console.log('publish remove 之后')
 
 </script>
   
