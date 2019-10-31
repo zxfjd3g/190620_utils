@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- 
+  PubSub 包含n个方法的对象
+  1. token = PubSub.subscribe(name, callback): 订阅消息   相当于绑定事件监听
+  2. PubSub.publish(name, data): 发布消息(异步)  相当于分发(dispatch)事件
+  3. PubSub.publishSync(name, data): 发布消息(同步)
+  4. PubSub.unsubscribe(flag): 取消订阅
+
+-->
+<!-- <script src="https://cdn.bootcss.com/pubsub-js/1.7.0/pubsub.min.js"></script> -->
+<script src="./pub-sub.js"></script>
+<script>
+
+  /* 
+  {
+    "add": {
+      'token1': fn1,
+      'token2': fn2
+    },
+    "remove": {
+      'token1': fn3
+    }
+  }
+  */
+
+  // 订阅消息
+  const token = PubSub.subscribe('add', (msg, data) => {
+    console.log('add cb1()', msg, data)
+  })
+  PubSub.subscribe('add', (msg, data) => {
+    console.log('add cb2()', msg, data)
+  })
+  PubSub.subscribe('remove', (msg, data) => {
+    console.log('remove cb1()', msg, data)
+  })
+
+  // PubSub.unsubscribe(token) 
+  // PubSub.unsubscribe('add') 
+  // PubSub.unsubscribe() 
+  // PubSub.publish('add', 1)
+  PubSub.publishSync('add', 1)
+  console.log('publish add 之后')
+  PubSub.publish('remove', 2)
+
+</script>
+  
+</body>
+</html>
