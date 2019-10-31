@@ -17,6 +17,22 @@
     3. 自定义实现bind()
   -->
   <script>
+
+    function fn(a, b) {
+      console.log(a, b, this)
+    }
+
+    const obj = {m: 1}
+
+    fn.call(obj, 1, 2) // 立即调用函数, this是第一个参数的值
+    fn.call(null, 1, 2)
+    fn.apply(obj, [3, 4])
+    fn.bind(obj)(6, 7)  // 返回一个新函数==> 执行新函数 => 内部会执行原来的函数, 原函数中的this为bind的第一个参数
+    // fn(5, 6)
+    fn.bind(obj, 8, 11)(9, 10)
+  </script>
+
+  <script>
     /* 自定义函数对象的call方法 */
     Function.prototype.call = function (obj, ...args) {
       // 如果传入的是null/undefined, this指定为window
@@ -52,18 +68,6 @@
     }
   </script>
   
-  <script>
-    function fn(a, b) {
-      console.log(a, b, this)
-    }
-
-    const obj = {m: 1}
-
-    fn.call(obj, 2, 3)  // 相当于执行了obj.fn(2, 3)
-    fn.apply(obj, [2, 3])
-    fn.bind(obj)(2, 3)
-    fn.bind(obj, 4)(2, 3)
-  </script>
 
 </body>
 </html>
