@@ -75,6 +75,40 @@
     }
   </script>
 
+
+  <script>
+    function throttle(callback, time) {
+      let start = 0
+      return function (...args) { // 事件监听函数
+        console.log('throttle事件22222')
+        const current = Date.now()
+        if (current - start > time) {
+          callback.apply(this, args)
+          // callback.call(this, ...args)
+          start = current
+        }
+        
+      }
+    }
+
+    function debounce (callback, time) {
+      return function (...args) {
+        console.log('debounce 事件2222')
+        const that = this
+
+        // 如果还有没有完成定时器, 取消它
+        if (callback.timeoutId) {
+          clearTimeout(callback.timeoutId)
+        }
+        // 启动一个新的定时器, 延迟调用处理的函数
+        callback.timeoutId = setTimeout(function () {
+          callback.apply(that, args)
+          delete callback.timeoutId
+        }, time);
+      }
+    }
+  </script>
+
   <script>
     /* 处理点击事件的回调函数 */
     function handleClick(event) { // 处理事件的回调
